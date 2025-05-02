@@ -103,12 +103,3 @@ POST /ask
 4. Chat history is preserved via session IDs for contextual continuity.
 
 ---
-
-## 📝 Todo
-
-- [ ] Add authentication for document uploads
-- [ ] Enable support for more document formats (e.g., Markdown)
-- [ ] Add UI with Streamlit or React frontend
-- [ ] Support multi-user sessions with persistence
-
----
