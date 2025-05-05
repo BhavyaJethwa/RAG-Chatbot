@@ -17,7 +17,7 @@ def upload_and_index_document(file:UploadFile = File(...)):
     file_extension = os.path.splitext(file.filename)[1].lower()
 
     if file_extension not in allowed_extension:
-        raise HTTPException(status_code=400, detail=f"Unsupported file type, supported file types are: {", ".join(allowed_extension)}")
+        raise HTTPException(status_code=400, detail=f"Unsupported file type, supported file types are: {', '.join(allowed_extension)}")
     
     temp_file_path = f"temp_{file.filename}"
 
@@ -26,10 +26,11 @@ def upload_and_index_document(file:UploadFile = File(...)):
             shutil.copyfileobj(file.file, buffer)
 
         file_id = insert_document_record(file.filename)
+        print("Document inserted successfully")
         success = index_document_to_chroma(temp_file_path,file_id)
 
         if success:
-            return {"message" : f"{file} successfully uploaded and indexed" , "file_id":file_id}
+            return {"message" : f"{file} successfully uploaded and indexed" , "file_id": file_id}
         else:
             delete_document_record(file_id)
             raise HTTPException(status_code=500, detail=f"Failed to index {file.filename}.")
@@ -55,26 +56,27 @@ def delete_document(request:DeleteFileRequest):
     
 
 @app.post("/chat", response_model=QueryResponse)
-def chat(query_input:QueryInput):
+def chat(query_input: QueryInput):
     session_id = query_input.session_id
-    logging.info(f"session_id : {session_id}, User Query: {query_input.question}, Model : {query_input.model.value} ")
+    logging.info(f"session_id: {session_id}, User Query: {query_input.question}, Model: {query_input.model.value}")
+
     if not session_id:
         session_id = str(uuid.uuid4())
 
-
     chat_history = get_chat_history(session_id=session_id)
-    rag_chain = rag_chain()
-    answer = rag_chain.invoke({
-        "input" : query_input.question,
-        "chat_history" : chat_history
+    rag = rag_chain()  # avoid variable shadowing
+    answer = rag.invoke({
+        "input": query_input.question,
+        "chat_history": chat_history
     })['answer']
 
     insert_application_logs(session_id, query_input.question, answer, query_input.model.value)
-    logging.info(f"session ID: {session_id}, AI Response: {answer}")
-    return QueryResponse(answer=answer , session_id=session_id, model=query_input.model)
+    logging.info(f"session_id: {session_id}, AI Response: {answer}")
 
+    return QueryResponse(answer=answer, session_id=session_id, model=query_input.model)
 
-@app.get("/list_docs" , response_model=list(DocumentInfo))
+from typing import List
+@app.get("/list-docs" , response_model = List[DocumentInfo])
 def list_document():
     return get_all_documents()
 

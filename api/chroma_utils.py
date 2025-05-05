@@ -24,12 +24,13 @@ def load_and_split_documents(filepath:str):
         raise ValueError(f"Unsupported file path: {filepath}, supported file paths are: '.pdf,' '.docx,' '.html'")
     
     docs = loader.load()
-    return text_splitter.split_documents(docs,embeddings)
+    splits = text_splitter.split_documents(docs)
+    return splits
 
 def index_document_to_chroma(filepath:str, file_id:int):
 
     try:
-        splits = load_and_split_documents(filepath=filepath)
+        splits = load_and_split_documents(filepath)
 
         for split in splits:
             split.metadata['file_id'] = file_id
@@ -38,7 +39,7 @@ def index_document_to_chroma(filepath:str, file_id:int):
         return True 
     
     except Exception as e:
-        print(f"error indexing {splits} : {e}")
+        print(f"error indexing: {e}")
         return False
     
 def delete_document_from_chroma(file_id:int):

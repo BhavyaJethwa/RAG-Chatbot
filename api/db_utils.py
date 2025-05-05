@@ -28,20 +28,24 @@ def create_application_logs():
 
 def insert_application_logs(session_id, user_query, gpt_response, model):
     conn = get_db_connection()
-    cursor=conn.cursor()
-    cursor.execute("INSERT INTO application_logs (session_id, user_query, gpt_response, model) VALUES (?, ?, ?, ?)"),(session_id,user_query,gpt_response,model)
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO application_logs (session_id, user_query, gpt_response, model) VALUES (?, ?, ?, ?)",
+        (session_id, user_query, gpt_response, model)
+    )
     conn.commit()
     conn.close()
+
 
 
 def get_chat_history(session_id):
     conn = get_db_connection()
     cursor = conn.cursor()
     cursor.execute(
-        "SELECT user_query, gpt_response" \
-        "FROM application_logs" \
-        "WHERE session_id = ?" \
-        "ORDER BY created_at", (session_id)
+        "SELECT user_query, gpt_response " \
+        "FROM application_logs " \
+        "WHERE session_id = ? " \
+        "ORDER BY created_at", (session_id,)
     )
     messages = []
     for row in cursor.fetchall():
@@ -67,7 +71,7 @@ def create_document_store():
 def insert_document_record(file_name):
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("INSERT INTO document_store (filename) VALUES (?)", (file_name))
+    cursor.execute("INSERT INTO document_store (filename) VALUES (?)", (file_name,))
     file_id  = cursor.lastrowid
     conn.commit()
     conn.close()
@@ -76,7 +80,7 @@ def insert_document_record(file_name):
 def delete_document_record(file_id):
     conn = get_db_connection()     
     cursor = conn.cursor()
-    cursor.execute("DELETE from document_store where id = ?",(file_id))
+    cursor.execute("DELETE from document_store where id = ?",(file_id,))
     conn.commit()
     conn.close()
     return True
@@ -84,8 +88,8 @@ def delete_document_record(file_id):
 def get_all_documents():
     conn = get_db_connection()
     cursor = conn.cursor()
-    cursor.execute("SELECT id, filename, upload_timestamp" \
-    "FROM document_store" \
+    cursor.execute("SELECT id, filename, upload_timestamp " \
+    "FROM document_store " \
     "ORDER BY upload_timestamp DESC")
     documents = cursor.fetchall()
     conn.close()

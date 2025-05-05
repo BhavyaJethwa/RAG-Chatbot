@@ -1,0 +1,39 @@
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:root:session_id : None, User Query: Hi, Model : gpt-4o 
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:root:session_id: None, User Query: Hi, Model: gpt-4o
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:session_id: None, User Query: Hi, Model: gpt-4o
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:session_id: 1345d40b-7d60-490f-9b30-892eb1fa0f7b, AI Response: Hello! How can I assist you today?
+INFO:root:session_id: 1345d40b-7d60-490f-9b30-892eb1fa0f7b, User Query: Tell me about Recurrent neural networks, long short-term memory, Model: gpt-4o
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:session_id: 1345d40b-7d60-490f-9b30-892eb1fa0f7b, AI Response: Recurrent Neural Networks (RNNs) are a type of neural network designed for processing sequences of data. They are particularly useful for tasks where the order and context of the data points are important, such as time series analysis, natural language processing, and speech recognition. Unlike traditional feedforward neural networks, RNNs have connections that loop back on themselves, allowing them to maintain a hidden state that captures information about previous inputs in the sequence.
+
+However, RNNs struggle with learning long-term dependencies due to issues like vanishing and exploding gradients, which can make it difficult to train them effectively when the relevant information is far back in the sequence. This limitation led to the development of specialized architectures, such as Long Short-Term Memory (LSTM) networks.
+
+LSTMs, introduced by Sepp Hochreiter and Jürgen Schmidhuber in 1997, are a type of RNN specifically designed to overcome the limitations of standard RNNs. They incorporate memory cells and gates that regulate the flow of information, allowing them to maintain information over long periods and effectively learn dependencies in sequences.
+
+The key components of LSTMs include:
+
+1. **Cell State**: This is the memory part of the LSTM network that carries relevant information across time steps.
+   
+2. **Forget Gate**: This gate decides what information to discard from the cell state, allowing the network to forget irrelevant information.
+
+3. **Input Gate**: This gate determines what new information to add to the cell state.
+
+4. **Output Gate**: This gate controls what information from the cell state is output as the hidden state for the next time step.
+
+These gates help LSTMs manage the information in a flexible manner, making them powerful for tasks that require the learning of long-term dependencies in sequential data.
+
+In summary, RNNs are suited for sequence data, but LSTMs enhance their capability by addressing the problem of long-term dependencies, making them more effective in various applications, including language modeling, translation, and time-series forecasting.
+INFO:root:session_id: 1345d40b-7d60-490f-9b30-892eb1fa0f7b, User Query: Thanks, Model: gpt-4o
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/embeddings "HTTP/1.1 200 OK"
+INFO:httpx:HTTP Request: POST https://api.openai.com/v1/chat/completions "HTTP/1.1 200 OK"
+INFO:root:session_id: 1345d40b-7d60-490f-9b30-892eb1fa0f7b, AI Response: You're welcome! If you have any more questions or need further information, feel free to ask!
